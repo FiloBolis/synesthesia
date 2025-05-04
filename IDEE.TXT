@@ -1,0 +1,165 @@
+sezione musica
+    - fare login al proprio spotify chiedendo se vogliono rimanere loggati (controllare se il token rimane invariato)
+    - fornire in base la mood (prendendo i brani dalla playlist che vuole e magri consiglarne altre dello stesso genere) o facendo fare il tinder sulle canzoni di una playlist
+sezione abbigliamento
+    - guardaroba in cui inserisce i suoi vestiti con colore, materiale, tipologia
+    - consigli su come vestirsi propone degli abiti in base al clima e alla stagione matchandoli con altri in base al colore
+
+
+API per rimozione bg
+    Ecco un esempio di come potresti utilizzare l'API di Remove.bg con JavaScript:
+    javascriptasync function removeBackground(imageFile) {
+    const formData = new FormData();
+    formData.append('image_file', imageFile);
+    
+    const response = await fetch('https://api.remove.bg/v1.0/removebg', {
+        method: 'POST',
+        headers: {
+        'X-Api-Key': 'LA_TUA_API_KEY'
+        },
+        body: formData
+    });
+    
+    if (response.ok) {
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    } else {
+        throw new Error('Errore nella rimozione dello sfondo');
+    }
+    }
+
+
+OPENWEATHERMAP FORNISCE I SEGUENI CODICI RELATIVI AL METEO
+    🌩️ Gruppo 2xx: Temporali
+    200: Temporale con pioggia leggera
+
+    201: Temporale con pioggia
+
+    202: Temporale con pioggia intensa
+
+    210: Temporale leggero
+
+    211: Temporale
+
+    212: Temporale intenso
+
+    221: Temporale irregolare
+
+    230: Temporale con pioviggine leggera
+
+    231: Temporale con pioviggine
+
+    232: Temporale con pioviggine intensa​
+    docs.openweather.co.uk
+    +1
+    openweathermap.org
+    +1
+    openweathermap.org
+
+    🌦️ Gruppo 3xx: Pioviggine
+    300: Pioviggine di intensità leggera
+
+    301: Pioviggine
+
+    302: Pioviggine di intensità forte
+
+    310: Pioviggine leggera con pioggia
+
+    311: Pioviggine con pioggia
+
+    312: Pioviggine intensa con pioggia
+
+    313: Pioggia e pioviggine
+
+    314: Pioggia intensa e pioviggine
+
+    321: Pioviggine a rovesci​
+
+    🌧️ Gruppo 5xx: Pioggia
+    500: Pioggia leggera
+
+    501: Pioggia moderata
+
+    502: Pioggia intensa
+
+    503: Pioggia molto intensa
+
+    504: Pioggia estrema
+
+    511: Pioggia gelata
+
+    520: Rovesci di pioggia leggera
+
+    521: Rovesci di pioggia
+
+    522: Rovesci di pioggia intensa
+
+    531: Rovesci di pioggia irregolari​
+    docs.openweather.co.uk
+    +1
+    openweathermap.org
+    +1
+    openweathermap.org
+
+    ❄️ Gruppo 6xx: Neve
+    600: Neve leggera
+
+    601: Neve
+
+    602: Neve intensa
+
+    611: Nevischio
+
+    612: Rovesci di nevischio leggero
+
+    613: Rovesci di nevischio
+
+    615: Pioggia leggera e neve
+
+    616: Pioggia e neve
+
+    620: Rovesci di neve leggera
+
+    621: Rovesci di neve
+
+    622: Rovesci di neve intensa​
+
+    🌫️ Gruppo 7xx: Fenomeni atmosferici
+    701: Nebbia
+
+    711: Fumo
+
+    721: Foschia
+
+    731: Turbolenze di sabbia/polvere
+
+    741: Nebbia fitta
+
+    751: Sabbia
+
+    761: Polvere
+
+    762: Cenere vulcanica
+
+    771: Raffiche
+
+    781: Tornado​
+
+    ☀️ Gruppo 800: Sereno
+    800: Cielo sereno​
+    Tomorrow.io Weather API Docs
+    +3
+    openweathermap.org
+    +3
+    docs.openweather.co.uk
+    +3
+
+    ☁️ Gruppo 80x: Nuvolosità
+    801: Poche nuvole (11–25%)
+
+    802: Nuvole sparse (25–50%)
+
+    803: Nuvolosità irregolare (51–84%)
+
+    804: Cielo coperto (85–100%)​
+    openweathermap.org

@@ -1,0 +1,353 @@
+/* Stili generali */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0a0a1a;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* Contenitore particelle */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Container principale */
+.login-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+/* Card di login e registrazione */
+.login-card {
+    background: rgba(15, 15, 35, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* Branding */
+.brand-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.brand-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #9c27b0, #3f51b5, #2196f3, #00bcd4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.brand-tagline {
+    color: #aaa;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Form di login e registrazione */
+.login-form {
+    margin-top: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.input-group {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: #3f51b5;
+}
+
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: #aaa;
+}
+
+.form-control {
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 0.8rem 0.5rem;
+    font-size: 1rem;
+    height: auto;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus {
+    box-shadow: none;
+    background: transparent;
+    color: #fff;
+}
+
+/* Validazione campi */
+.form-control.is-invalid {
+    border-bottom: 1px solid #dc3545;
+    background-image: none;
+}
+
+.form-control.is-valid {
+    border-bottom: 1px solid #28a745;
+    background-image: none;
+}
+
+.form-check {
+    margin: 0.8rem 0;
+}
+
+.form-check-label {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.terms-link {
+    color: #3f51b5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.terms-link:hover {
+    color: #9c27b0;
+    text-decoration: underline;
+}
+
+/* Pulsante di login e registrazione */
+.btn-login {
+    background: linear-gradient(90deg, #9c27b0, #3f51b5);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-login:hover {
+    background: linear-gradient(90deg, #3f51b5, #9c27b0);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Links */
+.alternative-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+}
+
+.alternative-actions span {
+    color: #aaa;
+}
+
+.forgot-password, .register {
+    color: #3f51b5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover, .register:hover {
+    color: #9c27b0;
+    text-decoration: underline;
+}
+
+.divider {
+    color: #555;
+}
+
+/* Contenitore visuale */
+.visual-container {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mood-visualizer {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(15, 15, 35, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Blobs di colore */
+.color-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    transition: all 3s ease-in-out;
+}
+
+.blob1 {
+    width: 200px;
+    height: 200px;
+    background: rgba(156, 39, 176, 0.6);
+    top: 10%;
+    left: 20%;
+}
+
+.blob2 {
+    width: 250px;
+    height: 250px;
+    background: rgba(33, 150, 243, 0.6);
+    top: 40%;
+    left: 50%;
+}
+
+.blob3 {
+    width: 180px;
+    height: 180px;
+    background: rgba(0, 188, 212, 0.6);
+    top: 70%;
+    left: 30%;
+}
+
+/* Onde musicali */
+.music-wave {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-end;
+    height: 100px;
+    gap: 5px;
+    width: 70%;
+    justify-content: center;
+}
+
+.music-wave .bar {
+    background: rgba(255, 255, 255, 0.7);
+    width: 8px;
+    height: 30px;
+    border-radius: 10px;
+    transition: height 0.3s ease;
+}
+
+/* Alert personalizzati */
+.alert {
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .login-container {
+        margin: 0 auto;
+        padding: 15px;
+    }
+    
+    .login-card {
+        max-width: 100%;
+    }
+    
+    .row {
+        flex-direction: column-reverse;
+    }
+    
+    .visual-container {
+        margin-bottom: 20px;
+    }
+    
+    .mood-visualizer {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 10px;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+        margin: 0 auto;
+    }
+    
+    .brand-name {
+        font-size: 1.8rem;
+    }
+    
+    .visual-container {
+        display: none;
+    }
+    
+    .login-form-container {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+}
+
+/* Animazioni */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.4;
+    }
+}

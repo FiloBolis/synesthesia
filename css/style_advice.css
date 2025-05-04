@@ -1,0 +1,195 @@
+/* Stili aggiuntivi specifici per la pagina dei consigli di stile */
+.outfit-container {
+    background: rgba(15, 15, 35, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.outfit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.outfit-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.weather-icon {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.weather-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.outfit-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.outfit-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.outfit-item {
+    background: rgba(30, 30, 50, 0.6);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    width: 200px;
+}
+
+.outfit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(33, 150, 243, 0.3);
+}
+
+.outfit-item-image {
+    height: 200px;
+    width: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(30, 30, 50, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outfit-item-name {
+    padding: 15px;
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.season-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(90deg, #2196f3, #3f51b5);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.intro-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.intro-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+}
+
+.btn-back-wardrobe {
+    background: linear-gradient(90deg, #9c27b0, #673ab7);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-back-wardrobe:hover {
+    background: linear-gradient(90deg, #673ab7, #9c27b0);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.outfit-container:nth-child(odd) {
+    animation: slideIn 0.5s ease-out;
+}
+
+.outfit-container:nth-child(even) {
+    animation: slideIn 0.5s ease-out 0.2s;
+    animation-fill-mode: both;
+}
+
+@media (max-width: 768px) {
+    .outfit-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .weather-info {
+        align-self: flex-start;
+    }
+    
+    .outfit-items {
+        justify-content: center;
+    }
+    
+    .outfit-item {
+        width: calc(50% - 10px);
+        min-width: 140px;
+    }
+    
+    .outfit-item-image {
+        height: 160px;
+    }
+    
+    .outfit-item-name {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
