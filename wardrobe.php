@@ -76,8 +76,8 @@
                                 <button class="btn btn-filter active" data-filter="all">Tutti</button>
                                 <button class="btn btn-filter" data-filter="top">Top</button>
                                 <button class="btn btn-filter" data-filter="bottom">Bottom</button>
-                                <button class="btn btn-filter" data-filter="footwear">Calzature</button>
-                                <button class="btn btn-filter" data-filter="accessories">Accessori</button>
+                                <button class="btn btn-filter" data-filter="calzature">Calzature</button>
+                                <button class="btn btn-filter" data-filter="accessori">Accessori</button>
                             </div>
                         </div>
 
