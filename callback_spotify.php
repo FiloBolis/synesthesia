@@ -14,7 +14,7 @@
 
     $client_id = '2f12f7caad5a425cb69e554e47673090';
     $client_secret = '45e4795916484272a302015d454334d8';
-    $redirect_uri = 'http://localhost/synesthesia/callback_spotify.php';
+    $redirect_uri = 'https://progettoscolastico.netsons.org/callback_spotify.php';
 
     if (!isset($_GET['code'])) {
         header("Location: spotify_login.php");
