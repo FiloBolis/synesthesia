@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card playlist-card" data-destination="playlist.php">
+                    <div class="feature-card playlist-card" data-destination="spotify_login.php">
                         <div class="card-icon">
                             <i class="fas fa-music"></i>
                         </div>

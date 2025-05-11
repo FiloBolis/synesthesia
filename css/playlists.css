@@ -1,0 +1,312 @@
+/* Stili per la pagina delle playlist */
+
+/* Filtri e ricerca */
+.playlist-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-filter {
+    background: rgba(30, 30, 60, 0.5);
+    color: #aaa;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-filter:hover, .btn-filter.active {
+    background: linear-gradient(90deg, #3f51b5, #9c27b0);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-box {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+}
+
+.search-box input {
+    background: rgba(30, 30, 60, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding-right: 40px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    background: rgba(40, 40, 80, 0.7);
+    box-shadow: 0 0 15px rgba(63, 81, 181, 0.3);
+    border-color: rgba(63, 81, 181, 0.5);
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+}
+
+/* Grid delle playlist */
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 3rem;
+}
+
+.playlist-card {
+    background: rgba(15, 15, 35, 0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.playlist-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.playlist-image-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Proporzione quadrata */
+    overflow: hidden;
+}
+
+.playlist-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.playlist-card:hover .playlist-image {
+    transform: scale(1.05);
+}
+
+.playlist-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.playlist-card:hover .playlist-overlay {
+    opacity: 1;
+}
+
+.play-button {
+    width: 60px;
+    height: 60px;
+    background: #1ED760;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #121212;
+    font-size: 1.5rem;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.play-button:hover {
+    transform: scale(1);
+    background: #1DB954;
+    color: #121212;
+}
+
+.playlist-info {
+    padding: 1.2rem;
+}
+
+.playlist-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+}
+
+.playlist-desc {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 40px;
+}
+
+.playlist-meta {
+    display: flex;
+    justify-content: space-between;
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.playlist-tracks, .playlist-owner {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Indicatore di proprietà della playlist */
+.playlist-card.user::before {
+    content: "Tua";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(30, 215, 96, 0.9);
+    color: #121212;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.playlist-card.spotify::before {
+    content: "Spotify";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(29, 185, 84, 0.9);
+    color: #121212;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+/* Messaggio nessun risultato */
+.no-results {
+    text-align: center;
+    padding: 3rem 0;
+    color: #aaa;
+}
+
+.no-results i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.no-results p {
+    font-size: 1.2rem;
+}
+
+/* Pulsante torna all'hub */
+.back-to-hub {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.btn-back {
+    background: linear-gradient(90deg, #3f51b5, #9c27b0);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: linear-gradient(90deg, #9c27b0, #3f51b5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+#playlistSearch {
+    color: white;
+}
+
+/* Pulsazione per nuove playlist */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(30, 215, 96, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(30, 215, 96, 0);
+    }
+}
+
+.playlist-card.new-playlist {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .playlist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .playlist-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .filter-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .playlist-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}

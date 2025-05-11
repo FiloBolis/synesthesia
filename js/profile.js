@@ -132,7 +132,15 @@ function setupProfileAnimations() {
 
     // Animazione delle attività recenti con effetto di fade-in all'ingresso
     const activityItems = document.querySelectorAll('.activity-item');
+    
+    // Prepara gli elementi per l'animazione
+    activityItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
 
+    // Usa solo l'Intersection Observer per triggerare l'animazione
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -142,29 +150,24 @@ function setupProfileAnimations() {
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Applica l'animazione quando l'elemento diventa visibile
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
                 entry.target.classList.add('fade-in');
+                
+                // Non dobbiamo necessariamente smettere di osservare qui
+                // ma possiamo farlo se vogliamo che l'animazione avvenga solo una volta
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
+    // Osserva tutti gli elementi
     activityItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(item);
     });
-
-    // Aggiungiamo una classe CSS quando l'elemento è visibile
-    document.addEventListener('scroll', function () {
-        activityItems.forEach(item => {
-            if (isElementInViewport(item) && !item.classList.contains('fade-in')) {
-                item.classList.add('fade-in');
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-            }
-        });
-    });
+    
+    // Rimuoviamo l'event listener di scroll ridondante che causava conflitti
 }
 
 // Animazione delle sound waves

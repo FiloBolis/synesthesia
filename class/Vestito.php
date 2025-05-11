@@ -6,20 +6,20 @@
         private $id_tipo;
         private $colore;
         private $id_stile;
-        private $materiale;
+        private $id_materiale;
         private $vestibilita;
         private $descrizione;
         private $img_path;
         private $nome;
 
-        public function __construct($id, $id_utente, $categoria, $id_tipo, $colore, $id_stile, $materiale, $vestibilita, $descrizione, $img_path, $nome) {
+        public function __construct($id, $id_utente, $categoria, $id_tipo, $colore, $id_stile, $id_materiale, $vestibilita, $descrizione, $img_path, $nome) {
             $this->id = $id;
             $this->id_utente = $id_utente;
             $this->categoria = $categoria;
             $this->id_tipo = $id_tipo;
             $this->colore = $colore;
             $this->id_stile = $id_stile;
-            $this->materiale = $materiale;
+            $this->id_materiale = $id_materiale;
             $this->vestibilita = $vestibilita;
             $this->descrizione = $descrizione;
             $this->img_path = $img_path;
@@ -50,8 +50,8 @@
             return $this->id_stile;
         }
 
-        public function getMateriale() {
-            return $this->materiale;
+        public function getIdMateriale() {
+            return $this->id_materiale;
         }
 
         public function getVestibilita() {

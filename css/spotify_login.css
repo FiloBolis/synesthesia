@@ -1,0 +1,583 @@
+/* Stili generali */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0a0a1a;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Contenitore particelle */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: rgba(15, 15, 35, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #9c27b0, #3f51b5, #2196f3, #00bcd4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-text {
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.btn-logout {
+    background: linear-gradient(90deg, #f44336, #ff5722);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background: linear-gradient(90deg, #ff5722, #f44336);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+/* Main Content */
+.playlist-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.main-content {
+    padding: 2rem 0 6rem;
+}
+
+/* Section Title */
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #00bcd4, #2196f3, #673ab7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: #aaa;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Spotify Connect Card */
+.spotify-connect-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.connect-card {
+    background: rgba(15, 15, 35, 0.7);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    max-width: 800px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.card-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.blob1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(30, 215, 96, 0.3); /* Spotify green */
+    top: -150px;
+    right: -100px;
+}
+
+.blob2 {
+    width: 250px;
+    height: 250px;
+    background: rgba(30, 215, 96, 0.2);
+    bottom: -100px;
+    left: -50px;
+}
+
+.spotify-logo {
+    font-size: 5rem;
+    color: #1ED760; /* Spotify green */
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.connect-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.connect-card p {
+    color: #aaa;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.connect-div {
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.remember-me {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.form-check-label {
+    font-size: 1rem;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.btn-spotify {
+    background: #1ED760;
+    color: #121212;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(30, 215, 96, 0.4);
+}
+
+.btn-spotify:hover {
+    background: #1DB954;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(30, 215, 96, 0.5);
+}
+
+.btn-spotify i {
+    margin-right: 10px;
+}
+
+/* Spotify Benefits */
+.spotify-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.benefit-item {
+    background: rgba(30, 30, 60, 0.5);
+    border-radius: 15px;
+    padding: 1.5rem;
+    width: calc(33.333% - 20px);
+    min-width: 200px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(30, 30, 60, 0.7);
+}
+
+.benefit-icon {
+    font-size: 2rem;
+    color: #1ED760;
+    background: rgba(30, 30, 60, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.benefit-text {
+    text-align: left;
+}
+
+.benefit-text h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.benefit-text p {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+/* Connected View */
+.connected-view {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.connected-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(15, 15, 35, 0.7);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spotify-logo.connected {
+    font-size: 3rem;
+    margin-bottom: 0;
+}
+
+.connection-info {
+    flex-grow: 1;
+}
+
+.connection-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.connection-info p {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+.btn-disconnect {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.5);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-disconnect:hover {
+    background: rgba(244, 67, 54, 0.3);
+    color: #fff;
+}
+
+/* Playlist Grid (placeholder) */
+.playlist-grid {
+    width: 100%;
+    min-height: 300px;
+    background: rgba(15, 15, 35, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-placeholder {
+    text-align: center;
+    padding: 3rem;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    color: #1ED760;
+    margin-bottom: 1.5rem;
+}
+
+.placeholder-content p {
+    font-size: 1.1rem;
+    color: #aaa;
+}
+
+/* Music Visualizer */
+.music-visualizer {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.music-visualizer h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #9c27b0, #3f51b5, #2196f3, #00bcd4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.music-visualizer p {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 2rem;
+}
+
+.visualizer-container {
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.central-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(156, 39, 176, 0.7), rgba(33, 150, 243, 0.7), rgba(0, 188, 212, 0.7));
+    filter: blur(10px);
+    position: relative;
+    animation: pulse 4s infinite ease-in-out;
+}
+
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 80px;
+    gap: 8px;
+}
+
+.wave-bar {
+    width: 6px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+}
+
+/* Back to Home Button */
+.back-to-home {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.btn-back {
+    background: linear-gradient(90deg, #3f51b5, #9c27b0);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: linear-gradient(90deg, #9c27b0, #3f51b5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+/* Footer */
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    background: rgba(15, 15, 35, 0.7);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    font-size: 0.9rem;
+    z-index: 90;
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .section-title h2 {
+        font-size: 2rem;
+    }
+    
+    .connect-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .spotify-logo {
+        font-size: 4rem;
+    }
+    
+    .connect-card h3 {
+        font-size: 1.7rem;
+    }
+    
+    .benefit-item {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 1rem;
+    }
+    
+    .user-info {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .section-title h2 {
+        font-size: 1.7rem;
+    }
+    
+    .section-title p {
+        font-size: 1rem;
+    }
+    
+    .connect-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .connect-card p {
+        font-size: 1rem;
+    }
+    
+    .spotify-benefits {
+        flex-direction: column;
+    }
+    
+    .benefit-item {
+        width: 100%;
+    }
+    
+    .connected-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+    
+    .music-visualizer h3 {
+        font-size: 1.7rem;
+    }
+    
+    .central-circle {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Animazioni */
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+}

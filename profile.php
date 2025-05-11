@@ -1,5 +1,6 @@
 <?php
     require_once "class/Utente.php";
+    require_once "class/Database.php";
     // Inizializzazione della sessione
     if (!isset($_SESSION)) {
         session_start();
@@ -156,36 +157,20 @@
                     <h2><i class="fas fa-history"></i> Attività Recenti</h2>
                 </div>
                 <div class="activities-container">
-                    <!-- <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h3>Hai creato una nuova playlist</h3>
-                            <p>"Vibes estive" - 12 brani</p>
-                            <span class="activity-time">3 giorni fa</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-tshirt"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h3>Hai aggiunto un nuovo capo al guardaroba</h3>
-                            <p>Giacca denim vintage</p>
-                            <span class="activity-time">1 settimana fa</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h3>Hai creato una nuova combinazione</h3>
-                            <p>"Urban Night" - ispirata a playlist Lofi Beats</p>
-                            <span class="activity-time">2 settimane fa</span>
-                        </div>
-                    </div> -->
+                    <?php
+                        $activities = $db->getActivities($utente->getId());
+                        foreach ($activities as $a) {
+                            echo '<div class="activity-item">';
+                            echo '<div class="activity-icon">';
+                            echo '<i class="fas fa-music"></i>';
+                            echo '</div>';
+                            echo '<div class="activity-content">';
+                            echo '<h3>'.$a["nome"].'</h3>';
+                            echo '<span class="activity-time">'.$a["data"].'</span>';
+                            echo '</div>';
+                            echo '</div>';
+                        }
+                    ?>
                 </div>
             </div>
         </main>

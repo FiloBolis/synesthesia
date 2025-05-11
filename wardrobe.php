@@ -114,17 +114,6 @@
                         <div class="advice-card">
                             <h4>Consigli di Stile</h4>
                             <p>Ottieni suggerimenti personalizzati basati sul tuo guardaroba.</p>
-                            <div class="mb-3">
-                                <select class="form-select" id="styleSelect">
-                                    <option value="" disabled selected>Seleziona stile</option>
-                                    <?php
-                                        $stili = $db->getStili();
-                                        foreach ($stili as $stile) {
-                                            echo '<option value="'.$stile.'">'.$stile.'</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>
                             <button onclick="mostraConsigli()" class="btn btn-get-advice">
                                 <i class="fas fa-lightbulb"></i> Scopri Outfit Consigliati
                             </button>
@@ -181,7 +170,27 @@
                         </div>
                         <div class="mb-3">
                             <label for="itemMaterial" class="form-label">Materiale</label>
-                            <input type="text" class="form-control" id="itemMaterial" required>
+                            <select class="form-select" id="itemMaterial" required>
+                                <option value="" disabled selected>Seleziona un materiale</option>
+                                <?php
+                                    $materiali = $db->getMateriali();
+                                    foreach ($materiali as $materiali) {
+                                        echo '<option value="'.$materiali.'">'.$materiali.'</option>';
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="itemType" class="form-label">Tipo</label>
+                            <select class="form-select" id="itemType" required>
+                                <option value="" disabled selected>Seleziona un tipo</option>
+                                <?php
+                                    $tipi = $db->getTipi();
+                                    foreach ($tipi as $tipi) {
+                                        echo '<option value="'.$tipi.'">'.$tipi.'</option>';
+                                    }
+                                ?>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="itemFit" class="form-label">Vestibilità</label>

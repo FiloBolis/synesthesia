@@ -1,0 +1,292 @@
+/* Stili per pickaTune - interfaccia swipe per canzoni */
+
+/* Container principale */
+.pickatune-container {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 1rem;
+    position: relative;
+}
+
+/* Istruzioni di swipe */
+.swipe-instructions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.instruction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.instruction.left i {
+    color: #ff4d4d;
+}
+
+.instruction.right i {
+    color: #4dff4d;
+}
+
+/* Area di swipe */
+.swipe-container {
+    position: relative;
+    height: 450px;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+}
+
+.swipe-area {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Stile della card della canzone */
+.track-card {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background-color: #222;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Bordi colorati per feedback visivo */
+.card-border {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border: 4px solid transparent;
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-border.left {
+    border-color: #ff4949;
+    left: 0;
+}
+
+.card-border.right {
+    border-color: #4caf50;
+    right: 0;
+}
+
+.card-border i {
+    font-size: 50px;
+    color: inherit;
+}
+
+.dragging-left .card-border.left,
+.dragging-right .card-border.right {
+    opacity: 1;
+}
+
+/* Informazioni sulla canzone */
+.track-info {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.track-name {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.track-artist {
+    font-size: 1.1rem;
+    color: #b3b3b3;
+    margin-bottom: 0;
+}
+
+/* Player Spotify */
+.track-player {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.track-player iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 12px;
+    border: none;
+}
+
+/* Pulsanti di azione */
+.swipe-actions {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.btn-dislike, .btn-like {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-dislike {
+    background-color: #ff4949;
+    color: white;
+}
+
+.btn-like {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-dislike:hover, .btn-like:hover {
+    transform: scale(1.1);
+}
+
+/* Barra di avanzamento */
+.swipe-progress {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #b3b3b3;
+}
+
+.progress {
+    height: 8px;
+    background-color: #3e3e3e;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #1ed760;
+    transition: width 0.5s ease;
+}
+
+/* Risultati */
+.completion-message {
+    text-align: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.completion-message h3 {
+    margin-bottom: 15px;
+    color: #1ed760;
+}
+
+#createPlaylistBtn {
+    background-color: #1ed760;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+#createPlaylistBtn:hover {
+    background-color: #1db954;
+    transform: scale(1.05);
+}
+
+/* Animazioni */
+@keyframes swipeLeft {
+    to {
+        transform: translateX(-150%) rotate(-30deg);
+        opacity: 0;
+    }
+}
+
+@keyframes swipeRight {
+    to {
+        transform: translateX(150%) rotate(30deg);
+        opacity: 0;
+    }
+}
+
+.swiped-left {
+    animation: swipeLeft 0.3s ease forwards;
+}
+
+.swiped-right {
+    animation: swipeRight 0.3s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .swipe-container {
+        height: 400px;
+    }
+    
+    .track-name {
+        font-size: 1.3rem;
+    }
+    
+    .track-artist {
+        font-size: 1rem;
+    }
+    
+    .swipe-actions {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .swipe-container {
+        height: 350px;
+    }
+    
+    .track-name {
+        font-size: 1.2rem;
+    }
+    
+    .track-artist {
+        font-size: 0.9rem;
+    }
+    
+    .swipe-instructions {
+        font-size: 0.8rem;
+    }
+    
+    .swipe-actions {
+        gap: 20px;
+    }
+    
+    .btn-dislike, .btn-like {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}

@@ -494,6 +494,7 @@ async function addCapo() {
     const colore = document.getElementById('itemColor').value;
     const stile = document.getElementById('itemStyle').value;
     const materiale = document.getElementById('itemMaterial').value;
+    const tipo = document.getElementById('itemType').value;
     const vestibilita = document.getElementById('itemFit').value;
     const descrizione = document.getElementById('itemDescription').value;
     const fileInput = document.getElementById('itemImage');
@@ -511,6 +512,7 @@ async function addCapo() {
     formData.append('colore', colore);
     formData.append('stile', stile);
     formData.append('materiale', materiale);
+    formData.append('tipo', tipo);
     formData.append('vestibilita', vestibilita);
     formData.append('descrizione', descrizione);
 
@@ -601,118 +603,142 @@ function showToast(title, message, type = 'info') {
 
 /**/
 
-function geInfo() {
-    getLocation();
-    let informazioni = "";
-
-    // Funzione principale per ottenere la posizione
-    function getLocation() {
+// Funzione principale per ottenere informazioni meteo
+async function getInfoMeteo() {
+    return new Promise((resolve, reject) => {
+        // Verifica se il browser supporta la geolocalizzazione
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(fetchWeatherData, handleGeolocationError);
+            navigator.geolocation.getCurrentPosition(
+                // Callback di successo
+                async (position) => {
+                    try {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        
+                        // Costruisci l'URL per la richiesta
+                        const url = `ajax/weather_service.php?lat=${lat}&lon=${lon}`;
+                        
+                        // Effettua la richiesta al servizio
+                        const response = await fetch(url);
+                        
+                        if (!response.ok) {
+                            throw new Error("Errore nella risposta del server");
+                        }
+                        
+                        // Ottieni il testo della risposta e converti in JSON
+                        const txt = await response.text();
+                        console.log("Risposta meteo ricevuta:", txt);
+                        
+                        const datiRicevuti = JSON.parse(txt);
+                        console.log("Dati meteo parsati:", datiRicevuti);
+                        
+                        // Controlla lo stato della risposta
+                        if (datiRicevuti.status === "ERR") {
+                            reject("Errore: " + datiRicevuti.msg);
+                        } else {
+                            // Risolvi la Promise con i dati ricevuti
+                            resolve(datiRicevuti);
+                        }
+                    } catch (error) {
+                        console.error("Errore nella richiesta meteo:", error);
+                        reject("Si è verificato un errore: " + error.message);
+                    }
+                },
+                // Callback di errore geolocalizzazione
+                (error) => {
+                    let errorMsg = "";
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg = "L'utente ha negato la richiesta di geolocalizzazione.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg = "Posizione non disponibile.";
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg = "La richiesta di geolocalizzazione è scaduta.";
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            errorMsg = "Errore sconosciuto.";
+                            break;
+                    }
+                    reject(errorMsg);
+                }
+            );
         } else {
-            alert("La geolocalizzazione non è supportata dal tuo browser.");
+            reject("La geolocalizzazione non è supportata dal tuo browser.");
         }
-    }
-
-    // Funzione per gestire gli errori di geolocalizzazione
-    function handleGeolocationError(error) {
-        let errorMsg = "";
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                errorMsg = "L'utente ha negato la richiesta di geolocalizzazione.";
-                break;
-            case error.POSITION_UNAVAILABLE:
-                errorMsg = "Posizione non disponibile.";
-                break;
-            case error.TIMEOUT:
-                errorMsg = "La richiesta di geolocalizzazione è scaduta.";
-                break;
-            case error.UNKNOWN_ERROR:
-                errorMsg = "Errore sconosciuto.";
-                break;
-        }
-
-        alert(errorMsg);
-    }
-
-    // Funzione per recuperare i dati meteo
-    async function fetchWeatherData(position) {
-        try {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-
-            // Costruisci l'URL per la richiesta
-            const url = `ajax/weather_service.php?lat=${lat}&lon=${lon}`;
-
-            // Effettua la richiesta al servizio
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error("Errore nella risposta del server");
-            }
-
-            // Ottieni il testo della risposta
-            const txt = await response.text();
-            console.log("Risposta ricevuta:", txt);
-
-            // Converti in JSON
-            const datiRicevuti = JSON.parse(txt);
-            console.log("Dati parsati:", datiRicevuti);
-
-            // Controlla lo stato della risposta
-            if (datiRicevuti.status === "ERR") {
-                alert("Errore: " + datiRicevuti.msg);
-            } else {
-                // Aggiorna l'interfaccia con i dati ricevuti
-                informazioni = datiRicevuti;
-            }
-        } catch (error) {
-            console.error("Errore:", error);
-            alert("Si è verificato un errore: " + error.message);
-        }
-    }
-
-    return informazioni;
+    });
 }
 
-// Funzione per aggiornare l'interfaccia utente
+// Funzione per mostrare consigli di stile
 async function mostraConsigli() {
-    let informazioni = geInfo();
+    try {
+        // Mostra indicatore di caricamento
+        const btn = document.getElementById('btnConsigli');
+        if (btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Caricamento...';
+            btn.disabled = true;
+        }
 
-    // Aggiorna la stagione
-    let stagione = "";
-    let temperatura = "";
-    let umidita = "";
-    let vento = "";
-    let codice = "";
-    let stile = document.getElementById('styleSelect').value;
-
-    if (informazioni.season) {
-        stagione = informazioni.season;
-    }
-
-    // Aggiorna i dati meteo
-    if (informazioni.weatherInfo) {
-        temperatura = informazioni.weatherInfo.temp;
-        umidita = informazioni.weatherInfo.humidity;
-        vento = informazioni.weatherInfo.wind_speed;
-        codice = informazioni.weatherInfo.weather_code;
-    }
-
-    let url = "ajax/getOutfit.php?stagione=" + stagione + "&temperatura=" + temperatura + "&umidita=" + umidita + "&vento=" + vento + "&codice=" + codice + "&stile=" + stile;
-    let response = await fetch(url);
-    if (!response.ok)
-        throw new Error("Errore nella risposta del server");
-
-    let txt = await response.text();
-    console.log(txt);
-    let datiRicevuti = JSON.parse(txt);
-    console.log(datiRicevuti);
-
-    if (datiRicevuti["status"] == "ERR")
-        console.error("Errore ricevuto dal server:", datiRicevuti.msg);
-    else if (datiRicevuti["status"] == "OK") {
-        console.log("Outfit inserito in sessione");
-        window.location.href = "style_advice.php";
+        // Ottieni le informazioni meteorologiche
+        const infoMeteo = await getInfoMeteo();
+        
+        // Prepara i parametri per la richiesta
+        let stagione = infoMeteo.season || "";
+        let temperatura = infoMeteo.weatherInfo?.temp || "";
+        let umidita = infoMeteo.weatherInfo?.humidity || "";
+        let vento = infoMeteo.weatherInfo?.wind_speed || "";
+        let codice = infoMeteo.weatherInfo?.weather_code || "";
+        
+        // Definisci il meteo in base al codice
+        let meteo = "";
+        // Determina il meteo in base al codice (WMO weather codes)
+        if (codice == 800) {
+            meteo = "Soleggiato"; // Clear/Mostly clear
+        } else if (codice >= 801 && codice <= 804) {
+            meteo = "Nuvoloso"; // Cloudy/Fog
+        } else if (codice >= 500 && codice <= 531) {
+            meteo = "Piovoso"; // Drizzle/Rain
+        } else if (codice >= 600 && codice <= 622) {
+            meteo = "Neve"; // Snow
+        }
+        
+        // Costruisci l'URL per la richiesta
+        const url = `ajax/getOutfit.php?stagione=${encodeURIComponent(stagione)}&temperatura=${encodeURIComponent(temperatura)}&umidita=${encodeURIComponent(umidita)}&vento=${encodeURIComponent(vento)}&codice=${encodeURIComponent(codice)}&meteo=${encodeURIComponent(meteo)}`;
+        
+        console.log("Richiesta outfit:", url);
+        
+        // Effettua la richiesta al servizio
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error("Errore nella risposta del server");
+        }
+        
+        // Ottieni il testo della risposta e converti in JSON
+        const txt = await response.text();
+        console.log("Risposta outfit ricevuta:", txt);
+        
+        const datiRicevuti = JSON.parse(txt);
+        console.log("Dati outfit parsati:", datiRicevuti);
+        
+        // Controlla lo stato della risposta
+        if (datiRicevuti.status === "ERR") {
+            alert("Errore: " + datiRicevuti.msg);
+        } else if (datiRicevuti.status === "OK") {
+            console.log("Outfit inserito in sessione");
+            window.location.href = "style_advice.php";
+        }
+    } catch (error) {
+        console.error("Errore:", error);
+        alert(error.message || "Si è verificato un errore durante il caricamento dei consigli di stile.");
+    } finally {
+        // Ripristina il pulsante
+        const btn = document.getElementById('btnConsigli');
+        if (btn) {
+            btn.innerHTML = 'Mostra Consigli di Stile';
+            btn.disabled = false;
+        }
     }
 }

@@ -327,6 +327,7 @@
     gap: 1.5rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center; /* Allinea verticalmente gli elementi */
 }
 
 .activity-item:last-child {
@@ -350,6 +351,10 @@
     font-size: 1.2rem;
 }
 
+.activity-content {
+    flex: 1;
+}
+
 .activity-content h3 {
     font-size: 1.1rem;
     font-weight: 600;
@@ -365,6 +370,7 @@
 .activity-time {
     font-size: 0.85rem;
     color: #777;
+    display: block; /* Assicura che sia su una riga separata */
 }
 
 /* Modal di modifica */

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Verifica che tutti i campi obbligatori siano presenti
-$requiredFields = ['nome', 'categoria', 'colore', 'stile', 'materiale', 'vestibilita'];
+$requiredFields = ['nome', 'categoria', 'colore', 'stile', 'materiale', 'tipo', 'vestibilita'];
 $missingFields = [];
 
 foreach ($requiredFields as $field) {
@@ -47,6 +47,7 @@ $categoria = $_POST['categoria'];
 $colore = $_POST['colore'];
 $stile = $_POST['stile'];
 $materiale = $_POST['materiale'];
+$tipo = $_POST['tipo'];
 $vestibilita = $_POST['vestibilita'];
 $descrizione = isset($_POST['descrizione']) ? $_POST['descrizione'] : '';
 
@@ -166,6 +167,7 @@ try {
         $colore,
         $stile,
         $materiale,
+        $tipo,
         $vestibilita,
         $descrizione,
         $imagePath,
@@ -184,6 +186,9 @@ try {
 } catch (Exception $e) {
     $response['msg'] = 'Eccezione: ' . $e->getMessage();
 }
+
+$db = Database::getInstance();
+$db->addActivity($_SESSION["user"]->getId(), "Inserimento di un nuovo capo nell'armadio");
 
 // Invia la risposta JSON
 echo json_encode($response);

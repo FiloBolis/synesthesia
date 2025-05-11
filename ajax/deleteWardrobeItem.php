@@ -1,5 +1,6 @@
 <?php
     require_once "../class/Database.php";
+    require_once "../class/Utente.php";
 
     if (!isset($_SESSION)) {
         session_start();
@@ -29,6 +30,9 @@
         echo json_encode($ret);
         die();
     }
+
+    $db = Database::getInstance();
+    $db->addActivity($_SESSION["user"]->getId(), "Eliminazione di un capo dall'armadio");
 
     $ret = [];
     $ret["status"] = "OK";

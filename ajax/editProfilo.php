@@ -1,5 +1,6 @@
 <?php
     require_once "../class/Database.php";
+    require_once "../class/Utente.php";
 
     if (!isset($_SESSION)) {
         session_start();
@@ -35,6 +36,9 @@
         echo json_encode($ret);
         die();
     }
+
+    $db = Database::getInstance();
+    $db->addActivity($_SESSION["user"]->getId(), "Modifiche effettuate al profilo synesthesia");
 
     $ret = [];
     $ret["status"] = "OK";

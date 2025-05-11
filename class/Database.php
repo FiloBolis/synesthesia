@@ -95,6 +95,26 @@ class Database
         return $stili;
     }
 
+    public function getTipi() {
+        $tipi  = [];   
+        $query  = "SELECT * FROM tipo_vestiti";
+        $result = $this->conn->query($query);
+        while ($row = $result->fetch_assoc()) {
+            $tipi[] = $row["nome"];
+        }
+        return $tipi;
+    }
+
+    public function getMateriali() {
+        $materiali  = [];   
+        $query  = "SELECT * FROM materiali";
+        $result = $this->conn->query($query);
+        while ($row = $result->fetch_assoc()) {
+            $materiali[] = $row["nome"];
+        }
+        return $materiali;
+    }
+
     public function editProfilo($id, $username, $email, $bio, $genere, $stile) {
         $username_attuale = $this->getUsername($id);
         $email_attuale = $this->getEmail($id);
@@ -201,11 +221,14 @@ class Database
         $stmt->execute();
     }
 
-    public function getVestiti() {
+    public function getVestiti($id_utente) {
         require_once "../class/Vestito.php";
 
-        $query = "SELECT * FROM vestiti";
-        $result = $this->conn->query($query);
+        $query = "SELECT * FROM vestiti WHERE id_utente = ?";
+        $stmt  = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id_utente);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $vestiti = [];
         while($row = $result->fetch_assoc()) {
             $vestiti[] = new Vestito(
@@ -215,7 +238,7 @@ class Database
                 $row["id_tipo"],
                 $row["colore"],
                 $row["id_stile"],
-                $row["materiale"],
+                $row["id_materiale"],
                 $row["vestibilita"],
                 $row["descrizione"],
                 $row["img_path"],
@@ -228,7 +251,7 @@ class Database
     public function getStileVestito($vestito) {
         require_once "../class/Vestito.php";
         $id_stile = $vestito->getIdStile();
-        $query = "SELECT nome FROM tipo_vestiti WHERE id = ?";
+        $query = "SELECT nome FROM stili WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id_stile);
         $stmt->execute();
@@ -239,36 +262,84 @@ class Database
 
     public function getTipoVestito($vestito) {
         require_once "../class/Vestito.php";
-        $id_stile = $vestito->getIdTipo();
-        $query = "SELECT nome FROM stili WHERE id = ?";
+        $id_tipo = $vestito->getIdTipo();
+        $query = "SELECT nome FROM tipo_vestiti WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $id_stile);
+        $stmt->bind_param("i", $id_tipo);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row ? $row["nome"] : null;
     }
 
-    public function addCapo($nome, $categoria, $colore, $stile, $materiale, $vestibilita, $descrizione, $imagePath, $id_utente) {
+    public function getMaterialeVestito($vestito) {
+        require_once "../class/Vestito.php";
+        $id_materiale = $vestito->getIdMateriale();
+        $query = "SELECT nome FROM materiali WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id_materiale);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row ? $row["nome"] : null;
+    }
+
+    public function getStratoUpper($tipo) {
+        $query = "SELECT strato FROM tipo_vestiti WHERE nome = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $tipo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["strato"];
+    }
+
+    public function addCapo($nome, $categoria, $colore, $stile, $materiale, $tipo, $vestibilita, $descrizione, $imagePath, $id_utente) {
+        $id_stile = $this->getIdStile($stile);
+        $id_materiale = $this->getIdMateriale($materiale);
+        $id_tipo = $this->getIdTipo($tipo);
+
+        if ($id_stile == null) {
+            return false; // Stile non trovato
+        }
+        $query = "INSERT INTO vestiti (id_utente, nome, categoria, id_tipo, colore, id_stile, id_materiale, vestibilita, descrizione, img_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("issisiisss", $id_utente, $nome, $categoria, $id_tipo, $colore, $id_stile, $id_materiale, $vestibilita, $descrizione, $imagePath);
+        if ($stmt->execute()) {
+            return true; // Capo aggiunto con successo
+        } else {
+            return false; // Errore durante l'aggiunta del capo
+        }
+    }
+
+    public function getIdStile($stile) {
         $query = "SELECT id FROM stili WHERE nome = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $stile);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-        $id_stile = $row ? $row["id"] : null;
+        return $row["id"];
+    }
 
-        if ($id_stile == null) {
-            return false; // Stile non trovato
-        }
-        $query = "INSERT INTO vestiti (id_utente, nome, categoria, id_tipo, colore, id_stile, materiale, vestibilita, descrizione, img_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public function getIdMateriale($materiale) {
+        $query = "SELECT id FROM materiali WHERE nome = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("issississs", $id_utente, $nome, $categoria, 1, $colore, $id_stile, $materiale, $vestibilita, $descrizione, $imagePath);
-        if ($stmt->execute()) {
-            return true; // Capo aggiunto con successo
-        } else {
-            return false; // Errore durante l'aggiunta del capo
-        }
+        $stmt->bind_param("s", $materiale);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["id"];
+    }
+
+    public function getIdTipo($tipo) {
+        $query = "SELECT id FROM tipo_vestiti WHERE nome = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $tipo);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row["id"];
     }
 
     public function deleteCapo($id) {
@@ -292,47 +363,113 @@ class Database
         $vestiti = [];
 
         while ($row = $result->fetch_assoc()) {
-            $vestiti[] = [
-                "id"          => $row["id"],
-                "categoria"   => $row["categoria"],
-                "tipo"        => $this->getTipoVestito(new Vestito(
+            if($row["categoria"] == "top") {
+                $tipo = $this->getTipoVestito(new Vestito(
                     $row["id"],
                     $row["id_utente"],
                     $row["categoria"],
                     $row["id_tipo"],
                     $row["colore"],
                     $row["id_stile"],
-                    $row["materiale"],
+                    $row["id_materiale"],
                     $row["vestibilita"],
                     $row["descrizione"],
                     $row["img_path"],
                     $row["nome"]
-                )),
-                "colore"      => $row["colore"],
-                "stile"       => $this->getStileVestito(new Vestito(
+                ));
+                $vestiti[] = [
+                    "id"          => $row["id"],
+                    "categoria"   => $row["categoria"],
+                    "tipo"        => $tipo,
+                    "colore"      => $row["colore"],
+                    "stile"       => $this->getStileVestito(new Vestito(
+                        $row["id"],
+                        $row["id_utente"],
+                        $row["categoria"],
+                        $row["id_tipo"],
+                        $row["colore"],
+                        $row["id_stile"],
+                        $row["id_materiale"],
+                        $row["vestibilita"],
+                        $row["descrizione"],
+                        $row["img_path"],
+                        $row["nome"]
+                    )),
+                    "materiale"   => $this->getMaterialeVestito(new Vestito(
+                        $row["id"],
+                        $row["id_utente"],
+                        $row["categoria"],
+                        $row["id_tipo"],
+                        $row["colore"],
+                        $row["id_stile"],
+                        $row["id_materiale"],
+                        $row["vestibilita"],
+                        $row["descrizione"],
+                        $row["img_path"],
+                        $row["nome"]
+                    )),
+                    "vestibilita" => $row["vestibilita"],
+                    "descrizione" => $row["descrizione"],
+                    "img_path"    => $row["img_path"],
+                    "nome"        => $row["nome"],
+                    "strato" => $this->getStratoUpper($tipo)
+                ];
+            } else {
+                $tipo = $this->getTipoVestito(new Vestito(
                     $row["id"],
                     $row["id_utente"],
                     $row["categoria"],
                     $row["id_tipo"],
                     $row["colore"],
                     $row["id_stile"],
-                    $row["materiale"],
+                    $row["id_materiale"],
                     $row["vestibilita"],
                     $row["descrizione"],
                     $row["img_path"],
                     $row["nome"]
-                )),
-                "materiale"   => $row["materiale"],
-                "vestibilita" => $row["vestibilita"],
-                "descrizione" => $row["descrizione"],
-                "img_path"    => $row["img_path"],
-                "nome"        => $row["nome"]
-            ];
+                ));
+                $vestiti[] = [
+                    "id"          => $row["id"],
+                    "categoria"   => $row["categoria"],
+                    "tipo"        => $tipo,
+                    "colore"      => $row["colore"],
+                    "stile"       => $this->getStileVestito(new Vestito(
+                        $row["id"],
+                        $row["id_utente"],
+                        $row["categoria"],
+                        $row["id_tipo"],
+                        $row["colore"],
+                        $row["id_stile"],
+                        $row["id_materiale"],
+                        $row["vestibilita"],
+                        $row["descrizione"],
+                        $row["img_path"],
+                        $row["nome"]
+                    )),
+                    "materiale"   => $this->getMaterialeVestito(new Vestito(
+                        $row["id"],
+                        $row["id_utente"],
+                        $row["categoria"],
+                        $row["id_tipo"],
+                        $row["colore"],
+                        $row["id_stile"],
+                        $row["id_materiale"],
+                        $row["vestibilita"],
+                        $row["descrizione"],
+                        $row["img_path"],
+                        $row["nome"]
+                    )),
+                    "vestibilita" => $row["vestibilita"],
+                    "descrizione" => $row["descrizione"],
+                    "img_path"    => $row["img_path"],
+                    "nome"        => $row["nome"]
+                ];
+            }
         }
         return $vestiti;
     }
 
-    public function suggerisciAbbigliamento($stagione, $temperatura, $umidita, $vento, $codice_meteo, $stile, $idUtente) {
+    public function suggerisciAbbigliamento($stagione, $temperatura, $umidita, $vento, $codice_meteo, $idUtente) {
         require_once "../class/OutfitFunzioni.php";
 
         $vestiti_disponibili = $this->getVettVestiti($idUtente);
@@ -347,11 +484,32 @@ class Database
         $esigenze = OutfitFunzioni::determinaEsigenze($temperatura_percepita, $condizioni_meteo, $stagione);
         
         // Trova i capi più adatti dal guardaroba disponibile
-        $vestiti = OutfitFunzioni::trovaCapiAdatti($vestiti_disponibili, $esigenze, $stile);
+        $vestiti = OutfitFunzioni::trovaCapiAdatti($vestiti_disponibili, $esigenze);
 
         // Crea outfit in base ai vestiti ottenuti
         $outfit = OutfitFunzioni::creaOutfit($esigenze, $vestiti);
         
         return $outfit;
+    }
+
+    public function addActivity($id_utente, $attivita) {
+        $query = "INSERT INTO attivita (id_utente, nome) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("is", $id_utente, $attivita);
+        $stmt->execute();
+    }
+
+    public function getActivities($id_utente) {
+        $query = "SELECT * FROM attivita WHERE id_utente = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id_utente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $attivita = [];
+        while($row = $result->fetch_assoc())
+            $attivita[] = $row;
+
+        return $attivita;
     }
 }

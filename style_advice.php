@@ -17,165 +17,24 @@
     $username = $_SESSION["user"]->getUsername();
     $db = Database::getInstance();
      
-    // Ottieni stagione e meteo
-    $stagione = $_SESSION["stagione"];
-    $meteo = $_SESSION["meteo"];
+    // Ottieni stagione e meteo dalla sessione
+    $stagione = $_SESSION["stagione"] ?? "Primavera";
+    $meteo = $_SESSION["meteo"] ?? "Soleggiato";
     
-    // Simulazione di outfit consigliati (in un'app reale, questa logica sarebbe più complessa)
-    $outfitConsigliati = [];
-    
-    // Outfit per Primavera
-    if ($stagione == "Primavera") {
-        if ($meteo == "Soleggiato") {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per una giornata di primavera soleggiata, ti consiglio di indossare una t-shirt bianca basic e abbinarla con jeans slim fit, sneakers basse e un cardigan leggero.",
-                "capi" => [
-                    ["nome" => "T-shirt bianca basic", "immagine" => "images/outfits/tshirt_bianca.jpg"],
-                    ["nome" => "Jeans slim fit blu", "immagine" => "images/outfits/jeans_slim.jpg"],
-                    ["nome" => "Sneakers basse bianche", "immagine" => "images/outfits/sneakers_bianche.jpg"],
-                    ["nome" => "Cardigan leggero grigio", "immagine" => "images/outfits/cardigan_grigio.jpg"]
-                ]
-            ];
-        } else if ($meteo == "Piovoso" || $meteo == "Nuvoloso") {
-            $outfitConsigliati[] = [
-                "descrizione" => "Con questo meteo incerto di primavera, ti suggerisco di indossare una camicia a quadri e abbinarla con chino pants, stivaletti impermeabili e una giacca leggera antipioggia.",
-                "capi" => [
-                    ["nome" => "Camicia a quadri", "immagine" => "images/outfits/camicia_quadri.jpg"],
-                    ["nome" => "Chino pants beige", "immagine" => "images/outfits/chino_beige.jpg"],
-                    ["nome" => "Stivaletti impermeabili", "immagine" => "images/outfits/stivaletti.jpg"],
-                    ["nome" => "Giacca antipioggia leggera", "immagine" => "images/outfits/giacca_antipioggia.jpg"]
-                ]
-            ];
-        } else {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per una giornata ventosa di primavera, ti consiglio di indossare un maglione leggero e abbinarlo con jeans straight fit, una sciarpa sottile e mocassini.",
-                "capi" => [
-                    ["nome" => "Maglione leggero blu", "immagine" => "images/outfits/maglione_leggero.jpg"],
-                    ["nome" => "Jeans straight fit", "immagine" => "images/outfits/jeans_straight.jpg"],
-                    ["nome" => "Sciarpa sottile", "immagine" => "images/outfits/sciarpa_sottile.jpg"],
-                    ["nome" => "Mocassini in pelle", "immagine" => "images/outfits/mocassini.jpg"]
-                ]
-            ];
-        }
-    }
-    // Outfit per Estate
-    else if ($stagione == "Estate") {
-        if ($meteo == "Soleggiato") {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per una giornata estiva e soleggiata, ti consiglio di indossare una polo colorata e abbinarla con bermuda in cotone, sandali comodi e un cappello panama.",
-                "capi" => [
-                    ["nome" => "Polo azzurra", "immagine" => "images/outfits/polo_azzurra.jpg"],
-                    ["nome" => "Bermuda in cotone beige", "immagine" => "images/outfits/bermuda_beige.jpg"],
-                    ["nome" => "Sandali in pelle", "immagine" => "images/outfits/sandali.jpg"],
-                    ["nome" => "Cappello panama", "immagine" => "images/outfits/cappello_panama.jpg"]
-                ]
-            ];
-        } else {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per un'estate con tempo variabile, ti consiglio di indossare una camicia di lino e abbinarla con pantaloni leggeri, sneakers in tela e una giacca leggera da tenere a portata di mano.",
-                "capi" => [
-                    ["nome" => "Camicia di lino bianca", "immagine" => "images/outfits/camicia_lino.jpg"],
-                    ["nome" => "Pantaloni leggeri navy", "immagine" => "images/outfits/pantaloni_leggeri.jpg"],
-                    ["nome" => "Sneakers in tela", "immagine" => "images/outfits/sneakers_tela.jpg"],
-                    ["nome" => "Giacca leggera beige", "immagine" => "images/outfits/giacca_leggera.jpg"]
-                ]
-            ];
-        }
-    }
-    // Outfit per Autunno
-    else if ($stagione == "Autunno") {
-        if ($meteo == "Soleggiato" || $meteo == "Nuvoloso") {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per una giornata autunnale, ti consiglio di indossare un maglione a collo alto e abbinarlo con jeans scuri, stivaletti chelsea e una giacca di pelle.",
-                "capi" => [
-                    ["nome" => "Maglione a collo alto bordeaux", "immagine" => "images/outfits/maglione_collo_alto.jpg"],
-                    ["nome" => "Jeans scuri slim fit", "immagine" => "images/outfits/jeans_scuri.jpg"],
-                    ["nome" => "Stivaletti chelsea neri", "immagine" => "images/outfits/stivaletti_chelsea.jpg"],
-                    ["nome" => "Giacca di pelle nera", "immagine" => "images/outfits/giacca_pelle.jpg"]
-                ]
-            ];
-        } else {
-            $outfitConsigliati[] = [
-                "descrizione" => "Con questo meteo autunnale variabile, ti suggerisco di indossare una camicia flanella e abbinarla con chino pants, boots impermeabili e un trench coat classico.",
-                "capi" => [
-                    ["nome" => "Camicia in flanella", "immagine" => "images/outfits/camicia_flanella.jpg"],
-                    ["nome" => "Chino pants marrone", "immagine" => "images/outfits/chino_marrone.jpg"],
-                    ["nome" => "Boots impermeabili", "immagine" => "images/outfits/boots.jpg"],
-                    ["nome" => "Trench coat beige", "immagine" => "images/outfits/trench.jpg"]
-                ]
-            ];
-        }
-    }
-    // Outfit per Inverno
-    else {
-        if ($meteo == "Soleggiato" || $meteo == "Nuvoloso") {
-            $outfitConsigliati[] = [
-                "descrizione" => "Per una giornata invernale fresca, ti consiglio di indossare un maglione pesante e abbinarlo con pantaloni di lana, stivali imbottiti e un cappotto elegante.",
-                "capi" => [
-                    ["nome" => "Maglione pesante grigio", "immagine" => "images/outfits/maglione_pesante.jpg"],
-                    ["nome" => "Pantaloni di lana", "immagine" => "images/outfits/pantaloni_lana.jpg"],
-                    ["nome" => "Stivali imbottiti", "immagine" => "images/outfits/stivali_imbottiti.jpg"],
-                    ["nome" => "Cappotto elegante navy", "immagine" => "images/outfits/cappotto_navy.jpg"]
-                ]
-            ];
-        } else {
-            $outfitConsigliati[] = [
-                "descrizione" => "Con questo meteo invernale rigido, ti suggerisco di indossare una felpa termica e abbinarla con jeans imbottiti, boots impermeabili, un parka e accessori caldi come guanti e sciarpa.",
-                "capi" => [
-                    ["nome" => "Felpa termica", "immagine" => "images/outfits/felpa_termica.jpg"],
-                    ["nome" => "Jeans imbottiti", "immagine" => "images/outfits/jeans_imbottiti.jpg"],
-                    ["nome" => "Boots impermeabili", "immagine" => "images/outfits/boots_impermeabili.jpg"],
-                    ["nome" => "Parka con cappuccio", "immagine" => "images/outfits/parka.jpg"],
-                    ["nome" => "Set guanti e sciarpa", "immagine" => "images/outfits/guanti_sciarpa.jpg"]
-                ]
-            ];
-        }
+    // Verifica che gli outfit siano presenti in sessione
+    if (!isset($_SESSION["outfits"]) || empty($_SESSION["outfits"])) {
+        // Reindirizza alla pagina di selezione se non ci sono outfit
+        header("location: wardrobe.php?error=Nessun outfit disponibile");
+        exit;
     }
     
-    // Aggiungi un secondo outfit per ogni stagione
-    if ($stagione == "Primavera") {
-        $outfitConsigliati[] = [
-            "descrizione" => "Per un look più elegante in primavera, ti consiglio di indossare una camicia oxford azzurra e abbinarla con chino pants, loafers e un blazer leggero.",
-            "capi" => [
-                ["nome" => "Camicia oxford azzurra", "immagine" => "images/outfits/camicia_oxford.jpg"],
-                ["nome" => "Chino pants navy", "immagine" => "images/outfits/chino_navy.jpg"],
-                ["nome" => "Loafers in pelle", "immagine" => "images/outfits/loafers.jpg"],
-                ["nome" => "Blazer leggero beige", "immagine" => "images/outfits/blazer_leggero.jpg"]
-            ]
-        ];
-    } else if ($stagione == "Estate") {
-        $outfitConsigliati[] = [
-            "descrizione" => "Per una serata estiva, ti consiglio di indossare una camicia a maniche corte stampata e abbinarla con bermuda eleganti, mocassini senza calze e un orologio sportivo.",
-            "capi" => [
-                ["nome" => "Camicia a maniche corte stampata", "immagine" => "images/outfits/camicia_stampata.jpg"],
-                ["nome" => "Bermuda eleganti blu", "immagine" => "images/outfits/bermuda_eleganti.jpg"],
-                ["nome" => "Mocassini estivi", "immagine" => "images/outfits/mocassini_estivi.jpg"],
-                ["nome" => "Orologio sportivo", "immagine" => "images/outfits/orologio_sportivo.jpg"]
-            ]
-        ];
-    } else if ($stagione == "Autunno") {
-        $outfitConsigliati[] = [
-            "descrizione" => "Per un look casual autunnale, ti consiglio di indossare un hoodie oversize e abbinarlo con joggers, sneakers chunky e una giacca di jeans.",
-            "capi" => [
-                ["nome" => "Hoodie oversize grigio", "immagine" => "images/outfits/hoodie_oversize.jpg"],
-                ["nome" => "Joggers neri", "immagine" => "images/outfits/joggers.jpg"],
-                ["nome" => "Sneakers chunky", "immagine" => "images/outfits/sneakers_chunky.jpg"],
-                ["nome" => "Giacca di jeans", "immagine" => "images/outfits/giacca_jeans.jpg"]
-            ]
-        ];
-    } else {
-        $outfitConsigliati[] = [
-            "descrizione" => "Per un'occasione elegante in inverno, ti consiglio di indossare un dolcevita nero e abbinarlo con pantaloni di flanella, stivaletti chelsea e un cappotto lungo.",
-            "capi" => [
-                ["nome" => "Dolcevita nero", "immagine" => "images/outfits/dolcevita.jpg"],
-                ["nome" => "Pantaloni di flanella grigi", "immagine" => "images/outfits/pantaloni_flanella.jpg"],
-                ["nome" => "Stivaletti chelsea marrone", "immagine" => "images/outfits/chelsea_marrone.jpg"],
-                ["nome" => "Cappotto lungo nero", "immagine" => "images/outfits/cappotto_lungo.jpg"]
-            ]
-        ];
-    }
-
     $outfitConsigliati = $_SESSION["outfits"];
+    
+    // Debug: Stampa nella console con JavaScript
+    echo "<script>
+        window.outfitData = " . json_encode($outfitConsigliati) . ";
+        console.log('Dati degli outfit caricati:', window.outfitData);
+    </script>";
 ?>
 
 <!DOCTYPE html>
@@ -276,41 +135,164 @@
                         ?>
                     </div>
                 </div>
-                
-                <!-- <p class="outfit-description"> -->
-                    <?php 
-                        //echo $outfit["descrizione"]; 
-                    ?>
-                <!-- </p> -->
 
-                <?php
-                    $capi = [];
-                    foreach ($outfit['upper_body'] as $o) {
-                        $capi[] = $o;
-                    }
-                    foreach ($outfit['lower_body'] as $o) {
-                        $capi[] = $o;
-                    }
-                    foreach ($outfit['calzature'] as $o) {
-                        $capi[] = $o;
-                    }
-                    foreach ($outfit['accessori'] as $o) {
-                        $capi[] = $o;
-                    }
-                ?>
-                
                 <div class="outfit-items">
-                    <?php foreach($capi as $capo): ?>
-                    <div class="outfit-item">
-                        <div class="outfit-item-image" style="background-image: url('<?php echo $capo["immagine"]; ?>');">
-                            <!-- Mostra immagine di fallback se l'immagine non esiste -->
-                            <?php if(!file_exists($capo["immagine"])): ?>
-                            <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
-                            <?php endif; ?>
+                    <?php
+                    // Debug dell'outfit corrente
+                    echo "<!-- Debug dell'outfit " . ($index + 1) . ": " . print_r($outfit, true) . " -->";
+                    
+                    // Sezione Upper Body
+                    if (!empty($outfit['upper_body'])): ?>
+                        <div class="outfit-category">
+                        <h4 class="category-title">Parte Superiore</h4>
+                        <div class="category-items">
+                        <?php
+                            foreach ($outfit['upper_body'] as $capo): ?>
+                                <?php $capo = $capo[0] ?>
+                                <div class="outfit-item">
+                                    <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                        <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                        <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="outfit-item-details">
+                                        <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                        <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                        <?php if(isset($capo["strato"])): ?>
+                                        <div class="outfit-item-layer">Strato: <?php echo $capo["strato"]; ?></div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach;
+                        ?>
+                    <?php endif; ?>
+                    
+                    <!-- Sezione Lower Body -->
+                    <?php if (!empty($outfit['lower_body'])): ?>
+                        <div class="outfit-category">
+                            <h4 class="category-title">Parte Inferiore</h4>
+                            <div class="category-items">
+                                <?php 
+                                // Gestiamo sia array che oggetto singolo
+                                if (isset($outfit['lower_body'][0])) {
+                                    // Array di capi
+                                    foreach ($outfit['lower_body'] as $capo): ?>
+                                        <div class="outfit-item">
+                                            <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                                <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                                <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="outfit-item-details">
+                                                <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                                <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach;
+                                } else {
+                                    // Singolo capo
+                                    $capo = $outfit['lower_body']; ?>
+                                    <div class="outfit-item">
+                                        <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                            <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                            <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="outfit-item-details">
+                                            <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                            <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
-                        <div class="outfit-item-name"><?php echo $capo["nome"]; ?></div>
-                    </div>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
+                    
+                    <!-- Sezione Calzature -->
+                    <?php if (!empty($outfit['calzature'])): ?>
+                        <div class="outfit-category">
+                            <h4 class="category-title">Calzature</h4>
+                            <div class="category-items">
+                                <?php 
+                                // Gestiamo sia array che oggetto singolo
+                                if (isset($outfit['calzature'][0])) {
+                                    // Array di calzature
+                                    foreach ($outfit['calzature'] as $capo): ?>
+                                        <div class="outfit-item">
+                                            <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                                <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                                <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="outfit-item-details">
+                                                <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                                <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach;
+                                } else {
+                                    // Singola calzatura
+                                    $capo = $outfit['calzature']; ?>
+                                    <div class="outfit-item">
+                                        <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                            <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                            <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="outfit-item-details">
+                                            <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                            <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <!-- Sezione Accessori -->
+                    <?php if (!empty($outfit['accessori'])): ?>
+                        <div class="outfit-category">
+                            <h4 class="category-title">Accessori</h4>
+                            <div class="category-items">
+                                <?php 
+                                // Gestiamo sia array che oggetto singolo
+                                if (isset($outfit['accessori'][0])) {
+                                    // Array di accessori
+                                    foreach ($outfit['accessori'] as $capo): ?>
+                                        <div class="outfit-item">
+                                            <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                                <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                                <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="outfit-item-details">
+                                                <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                                <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach;
+                                } else {
+                                    // Singolo accessorio
+                                    $capo = $outfit['accessori']; ?>
+                                    <div class="outfit-item">
+                                        <div class="outfit-item-image" style="background-image: url('<?php echo isset($capo["img_path"]) ? $capo["img_path"] : ''; ?>');">
+                                            <?php if(!isset($capo["img_path"]) || empty($capo["img_path"]) || !file_exists($capo["img_path"])): ?>
+                                            <i class="fas fa-tshirt fa-3x" style="color: rgba(255,255,255,0.5);"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="outfit-item-details">
+                                            <div class="outfit-item-name"><?php echo isset($capo["nome"]) ? $capo["nome"] : "Capo senza nome"; ?></div>
+                                            <div class="outfit-item-category"><?php echo isset($capo["categoria"]) ? ucfirst($capo["categoria"]) : ""; ?></div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if(empty($outfit['upper_body']) && empty($outfit['lower_body']) && empty($outfit['calzature']) && empty($outfit['accessori'])): ?>
+                        <div class="alert alert-info">Nessun capo disponibile per questo outfit</div>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>    

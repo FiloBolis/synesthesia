@@ -1,6 +1,7 @@
 <?php
     require_once "../class/Database.php";
     require_once "../class/Vestito.php";
+    require_once "../class/Utente.php";
 
     if (!isset($_SESSION)) {
         session_start();
@@ -14,7 +15,7 @@
     
     $db = Database::getInstance();
     
-    $vestiti = $db->getVestiti();
+    $vestiti = $db->getVestiti($_SESSION["user"]->getId());
     if ($vestiti == null) {
         $ret = [];
         $ret["status"] = "ERR";
@@ -23,29 +24,18 @@
         die();
     }
 
-    // $ret = [];
-    // $ret["status"] = "OK";
-    // $ret["msg"] = "Vestiti trovati!";
-    // $ret["vestiti"] = $vestiti;
-    // echo json_encode($ret);
-    // die();
-
-    //richiamare metodo che mi fa prendere lo stile dall'id, successivamente popolare il vettore in questo modo:
-        //$vestiti = [
-            // ["id" => 1, "nome" => "Camicia", "prezzo" => 29.99],
-            // ["id" => 2, "nome" => "Pantaloni", "prezzo" => 49.99],
-            // altri oggetti...
-        // ];
-
     $vettVestiti = [];
     foreach ($vestiti as $v) {
         $stile = $db->getStileVestito($v);
+        $materiale = $db->getMaterialeVestito($v);
+        $tipo = $db->getTipoVestito($v);
         $vettVestiti[] = [
             "id" => $v->getId(),
             "categoria" => $v->getCategoria(),
             "colore" => $v->getColore(),
             "stile" => $stile,
-            "materiale" => $v->getMateriale(),
+            "materiale" => $materiale,
+            "tipo" => $tipo,
             "vestibilita" => $v->getVestibilita(),
             "descrizione" => $v->getDescrizione(),
             "img_path" => $v->getImgPath(),

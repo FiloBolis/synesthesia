@@ -73,79 +73,83 @@ document.addEventListener('DOMContentLoaded', function () {
 //         alert(errorMsg);
 //     }
     
-//     // Funzione per recuperare i dati meteo
-//     async function fetchWeatherData(position) {
-//         try {
-//             const lat = position.coords.latitude;
-//             const lon = position.coords.longitude;
+//     // // Funzione per recuperare i dati meteo
+//     // async function fetchWeatherData(position) {
+//     //     try {
+//     //         const lat = position.coords.latitude;
+//     //         const lon = position.coords.longitude;
             
-//             // Costruisci l'URL per la richiesta
-//             const url = `weather_service.php?lat=${lat}&lon=${lon}`;
+//     //         // Costruisci l'URL per la richiesta
+//     //         const url = `weather_service.php?lat=${lat}&lon=${lon}`;
             
-//             // Effettua la richiesta al servizio
-//             const response = await fetch(url);
+//     //         // Effettua la richiesta al servizio
+//     //         const response = await fetch(url);
             
-//             if (!response.ok) {
-//                 throw new Error("Errore nella risposta del server");
-//             }
+//     //         if (!response.ok) {
+//     //             throw new Error("Errore nella risposta del server");
+//     //         }
             
-//             // Ottieni il testo della risposta
-//             const txt = await response.text();
-//             console.log("Risposta ricevuta:", txt);
+//     //         // Ottieni il testo della risposta
+//     //         const txt = await response.text();
+//     //         console.log("Risposta ricevuta:", txt);
             
-//             // Converti in JSON
-//             const datiRicevuti = JSON.parse(txt);
-//             console.log("Dati parsati:", datiRicevuti);
+//     //         // Converti in JSON
+//     //         const datiRicevuti = JSON.parse(txt);
+//     //         console.log("Dati parsati:", datiRicevuti);
             
-//             // Controlla lo stato della risposta
-//             if (datiRicevuti.status === "ERR") {
-//                 alert("Errore: " + datiRicevuti.msg);
-//             } else {
-//                 // Aggiorna l'interfaccia con i dati ricevuti
-//                 getOutfit(datiRicevuti);
-//             }
-//         } catch (error) {
-//             console.error("Errore:", error);
-//             alert("Si è verificato un errore: " + error.message);
-//         }
-//     }
+//     //         // Controlla lo stato della risposta
+//     //         if (datiRicevuti.status === "ERR") {
+//     //             alert("Errore: " + datiRicevuti.msg);
+//     //         } else {
+//     //             // Aggiorna l'interfaccia con i dati ricevuti
+//     //             getOutfit(datiRicevuti);
+//     //         }
+//     //     } catch (error) {
+//     //         console.error("Errore:", error);
+//     //         alert("Si è verificato un errore: " + error.message);
+//     //     }
+//     // }
     
-//     // Funzione per aggiornare l'interfaccia utente
-//     async function getOutfit(data) {       
-//         // Aggiorna la stagione
-//         let stagione = "";
-//         let temperatura = "";
-//         let umidita = "";
-//         let vento = "";
-//         let codice = "";
+//     // // Funzione per aggiornare l'interfaccia utente
+//     // async function getOutfit(data) {       
+//     //     // Aggiorna la stagione
+//     //     let stagione = "";
+//     //     let temperatura = "";
+//     //     let umidita = "";
+//     //     let vento = "";
+//     //     let codice = "";
+//     //     let meteo = "";
 
-//         if (data.season) {
-//             stagione = data.season;
-//         }
+//     //     if (data.season) {
+//     //         stagione = data.season;
+//     //     }
         
-//         // Aggiorna i dati meteo
-//         if (data.weatherInfo) {
-//             temperatura = data.weatherInfo.temp;
-//             umidita = data.weatherInfo.humidity;
-//             vento = data.weatherInfo.wind_speed;
-//             codice = data.weatherInfo.weather_code;
-//         }
+//     //     // Aggiorna i dati meteo
+//     //     if (data.weatherInfo) {
+//     //         temperatura = data.weatherInfo.temp;
+//     //         umidita = data.weatherInfo.humidity;
+//     //         vento = data.weatherInfo.wind_speed;
+//     //         codice = data.weatherInfo.weather_code;
+//     //         meteo = data.weatherInfo.description || "Soleggiato"; // Valore predefinito se non disponibile
+//     //     }
 
-//         let url = "ajax/getOutfit.php?stagione=" + stagione + "&temperatura=" + temperatura + "&umidita=" + umidita + "&vento=" + vento + "&codice=" + codice;
-//         let response = await fetch(url);
-//         if(!response.ok)
-//             throw new Error("Errore nella risposta del server");
+//     //     let url = "ajax/getOutfit.php?stagione=" + stagione + "&temperatura=" + temperatura + "&umidita=" + umidita + "&vento=" + vento + "&codice=" + codice + "&meteo=" + meteo;
+//     //     let response = await fetch(url);
+//     //     if(!response.ok)
+//     //         throw new Error("Errore nella risposta del server");
 
-//         let txt = await response.text();
-//         console.log("Risposta ricevuta:", txt);
-//         let datiRicevuti = JSON.parse(txt);
-//         console.log("Dati parsati:", datiRicevuti);
+//     //     let txt = await response.text();
+//     //     console.log("Risposta ricevuta da getOutfit.php:", txt);
+//     //     let datiRicevuti = JSON.parse(txt);
+//     //     console.log("Outfits ricevuti:", datiRicevuti);
 
-//         if (datiRicevuti.status === "ERR") {
-//             alert("Errore: " + datiRicevuti.msg);
-//         } else {
-//             // Aggiorna l'interfaccia con i dati ricevuti
-            
-//         }
-//     }
+//     //     if (datiRicevuti.status === "ERR") {
+//     //         alert("Errore: " + datiRicevuti.msg);
+//     //     } else {
+//     //         // Stampa in console i dati degli outfit per debug
+//     //         if (window.outfitData) {
+//     //             console.log("Dati outfits dalla sessione:", window.outfitData);
+//     //         }
+//     //     }
+//     // }
 // });
