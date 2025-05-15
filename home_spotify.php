@@ -90,7 +90,7 @@
                     <h3>PickaTune</h3>
                     <p>Scegli brani in base al tuo stile e crea nuove playlist uniche che riflettono la tua personalità</p>
                     
-                    <button class="btn btn-hub" onclick="getTracks(20)">
+                    <button class="btn btn-hub" onclick="getTracks(0)">
                         <i class="fas fa-arrow-right"></i> Vai a PickaTune
                     </button>
                 </div>
